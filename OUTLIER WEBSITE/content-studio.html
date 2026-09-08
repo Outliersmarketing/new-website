@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0e0e0e;--ink2:#1a1a1a;--ink3:#242424;
+  --white:#fff;
+  --mist:rgba(255,255,255,0.06);
+  --mist2:rgba(255,255,255,0.03);
+  --border:rgba(255,255,255,0.09);
+  --border2:rgba(255,255,255,0.15);
+  --accent:#c94a1f;--accent2:#e8713e;
+  --accent-bg:rgba(201,74,31,0.1);
+  --text1:rgba(255,255,255,0.92);
+  --text2:rgba(255,255,255,0.55);
+  --text3:rgba(255,255,255,0.3);
+}
+body{background:var(--ink);color:var(--text1);font-family:'Hanken Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;border-bottom:0.5px solid var(--border);position:sticky;top:0;background:var(--ink);z-index:100;}
+.logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.3rem;letter-spacing:-0.02em;text-decoration:none;color:var(--text1);}
+.logo em{font-style:normal;color:var(--accent);}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.88rem;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--text1);}
+.nav-links a.active{border-bottom:1px solid var(--accent);padding-bottom:2px;}
+.nav-cta{background:var(--accent);color:#fff;border:none;padding:0.55rem 1.3rem;border-radius:4px;font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:0.85rem;cursor:pointer;transition:background 0.2s;}
+.nav-cta:hover{background:var(--accent2);}
+
+/* HERO */
+.hero{padding:4rem 2.5rem 3.5rem;border-bottom:0.5px solid var(--border);display:grid;grid-template-columns:1fr 340px;gap:3rem;align-items:start;}
+.hero-eyebrow{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem;font-weight:500;}
+.hero-eyebrow::before{content:'';display:inline-block;width:20px;height:1px;background:var(--accent);}
+.hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.4rem;}
+.hero h1 em{font-style:italic;color:var(--accent);font-weight:400;}
+.hero-desc{color:var(--text2);font-size:0.95rem;line-height:1.8;max-width:480px;margin-bottom:2rem;font-weight:300;}
+.hero-actions{display:flex;gap:0.8rem;}
+.btn-p{background:var(--accent);color:#fff;border:none;padding:0.75rem 1.6rem;border-radius:4px;font-size:0.88rem;cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-weight:500;transition:background 0.2s;}
+.btn-p:hover{background:var(--accent2);}
+.btn-g{background:transparent;color:var(--text1);border:0.5px solid var(--border2);padding:0.75rem 1.6rem;border-radius:4px;font-size:0.88rem;cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-weight:500;}
+
+/* HERO RIGHT — mini content calendar teaser */
+.cal-widget{background:var(--ink2);border:0.5px solid var(--border);border-radius:8px;overflow:hidden;}
+.cal-header{padding:0.9rem 1.1rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cal-header span{font-size:0.78rem;color:var(--text2);}
+.cal-header strong{font-family:'Fraunces',serif;font-weight:600;font-size:0.95rem;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border);font-size:0.7rem;}
+.cal-day{background:var(--ink2);padding:0.55rem 0.3rem;text-align:center;color:var(--text3);}
+.cal-day.hdr{color:var(--text3);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.06em;}
+.cal-day.has{background:var(--ink3);color:var(--text1);}
+.cal-day.pub{background:var(--accent-bg);color:var(--accent2);}
+.cal-day.today{background:var(--accent);color:#fff;font-weight:500;}
+.cal-legend{padding:0.8rem 1.1rem;display:flex;gap:1rem;border-top:0.5px solid var(--border);}
+.leg{display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;color:var(--text3);}
+.leg-dot{width:8px;height:8px;border-radius:2px;}
+
+/* FORMATS */
+.formats-section{padding:3.5rem 2.5rem;border-bottom:0.5px solid var(--border);}
+.sec-label{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);margin-bottom:0.7rem;font-weight:500;}
+.sec-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.8rem;line-height:1.2;margin-bottom:2.2rem;letter-spacing:-0.01em;}
+.sec-title em{font-style:italic;color:var(--accent);}
+
+.formats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.fmt{background:var(--ink);padding:1.8rem 1.5rem;position:relative;transition:background 0.2s;}
+.fmt:hover{background:var(--ink2);}
+.fmt-badge{display:inline-block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:20px;margin-bottom:1rem;font-weight:500;}
+.fmt h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;margin-bottom:0.6rem;line-height:1.3;}
+.fmt p{font-size:0.85rem;color:var(--text2);line-height:1.7;}
+.fmt-tags{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem;}
+.tag{font-size:0.7rem;padding:0.25rem 0.55rem;border:0.5px solid var(--border2);border-radius:20px;color:var(--text3);font-weight:500;}
+.fmt.red .fmt-badge{background:rgba(201,74,31,0.15);color:var(--accent2);}
+.fmt.tl .fmt-badge{background:rgba(14,110,86,0.18);color:#4ecdb4;}
+.fmt.gd .fmt-badge{background:rgba(201,150,31,0.15);color:#e8c069;}
+
+/* AI STRIP */
+.ai-strip{padding:2.5rem;background:var(--ink2);border-bottom:0.5px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.ai-strip h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.6rem;margin-bottom:0.6rem;line-height:1.25;letter-spacing:-0.01em;}
+.ai-strip h2 em{font-style:italic;color:#4ecdb4;font-weight:400;}
+.ai-strip p{font-size:0.88rem;color:var(--text2);line-height:1.75;}
+.ai-features{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+.ai-feat{background:var(--ink3);border:0.5px solid var(--border);border-radius:8px;padding:1rem;}
+.ai-feat .feat-label{font-size:0.82rem;font-weight:600;margin-bottom:0.3rem;font-family:'Fraunces',serif;}
+.ai-feat p{font-size:0.78rem;color:var(--text2);line-height:1.5;}
+.ai-feat.tl{border-top:1.5px solid #4ecdb4;}
+
+/* PROCESS STRIP */
+.process{padding:3.5rem 2.5rem;border-bottom:0.5px solid var(--border);}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:2rem;position:relative;}
+.steps::before{content:'';position:absolute;top:1.1rem;left:calc(10% + 1px);right:calc(10% + 1px);height:0.5px;background:var(--border2);}
+.step{text-align:center;padding:0 0.5rem;}
+.step-n{width:2.2rem;height:2.2rem;border-radius:50%;border:0.5px solid var(--border2);display:flex;align-items:center;justify-content:center;margin:0 auto 0.9rem;font-family:'Fraunces',serif;font-size:0.78rem;font-weight:600;background:var(--ink);position:relative;}
+.step-n.on{background:var(--accent);border-color:var(--accent);}
+.step h4{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;margin-bottom:0.35rem;}
+.step p{font-size:0.76rem;color:var(--text2);line-height:1.55;}
+
+/* TIERS */
+.tiers{padding:3.5rem 2.5rem;border-bottom:0.5px solid var(--border);}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
+.tier{border:0.5px solid var(--border);border-radius:8px;padding:1.8rem 1.5rem;transition:border-color 0.2s;}
+.tier:hover{border-color:rgba(255,255,255,0.15);}
+.tier.featured{border-color:var(--accent);border-width:1.5px;}
+.tier-badge{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;display:inline-block;padding:0.25rem 0.6rem;border-radius:20px;font-weight:500;}
+.tier.featured .tier-badge{background:var(--accent-bg);color:var(--accent2);}
+.tier-name{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.3rem;}
+.tier-price{font-size:2rem;font-family:'Fraunces',serif;font-weight:600;margin-bottom:0.2rem;}
+.tier-price span{font-size:0.8rem;font-weight:400;color:var(--text2);}
+.tier-sub{font-size:0.8rem;color:var(--text2);margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:0.5px solid var(--border);line-height:1.55;}
+.tier ul{list-style:none;}
+.tier ul li{font-size:0.82rem;color:var(--text2);padding:0.35rem 0;display:flex;gap:0.5rem;align-items:flex-start;border-bottom:0.5px solid rgba(255,255,255,0.04);}
+.tier ul li::before{content:'✓';color:var(--accent2);flex-shrink:0;font-size:0.76rem;margin-top:0.1rem;}
+.tier ul li.off{color:var(--text3);}
+.tier ul li.off::before{content:'–';color:var(--text3);}
+.tier-btn{width:100%;margin-top:1.4rem;padding:0.75rem;border-radius:4px;font-size:0.85rem;cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-weight:500;transition:background 0.2s;}
+.tier-btn.outline{background:transparent;border:0.5px solid var(--border2);color:var(--text1);}
+.tier-btn.solid{background:var(--accent);border:none;color:#fff;}
+.tier-btn.solid:hover{background:var(--accent2);}
+
+/* WORK SAMPLES */
+.samples{padding:3.5rem 2.5rem;border-bottom:0.5px solid var(--border);}
+.samples-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
+.sample{border:0.5px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.2s;}
+.sample:hover{border-color:rgba(255,255,255,0.15);}
+.sample-img{height:100px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+.sample-img.c1{background:#1a1208;}
+.sample-img.c2{background:#081a14;}
+.sample-img.c3{background:#150e1a;}
+.sample-body{padding:1.2rem;}
+.sample-type{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.4rem;font-weight:500;}
+.sample-body h4{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;line-height:1.3;margin-bottom:0.4rem;}
+.sample-body p{font-size:0.8rem;color:var(--text2);line-height:1.6;}
+
+/* CTA FOOTER */
+.cta-block{padding:4rem 2.5rem;text-align:center;}
+.cta-block h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.8rem,3vw,2.6rem);margin-bottom:0.8rem;line-height:1.1;letter-spacing:-0.01em;}
+.cta-block h2 em{font-style:italic;color:var(--accent);font-weight:400;}
+.cta-block p{font-size:0.92rem;color:var(--text2);margin-bottom:2rem;}
+.cta-block .hero-actions{justify-content:center;}
+</style>
+</head>
+<body>
+
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Outliers Content Studio — full page design mockup</h2>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="logo">OUTLIERS<em>.</em></a>
+  <ul class="nav-links">
+    <!-- Added Home button here -->
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="ai-solutions.html">AI Solutions</a></li>
+    <li><a href="content-studio.html" class="active">Content Studio</a></li>
+    <li><a href="pos-marketing.html">POS Marketing</a></li>
+    <li><a href="digital-marketing.html">Digital Marketing</a></li>
+    <li><a href="work.html">Work</a></li>
+  </ul>
+  <button class="nav-cta">Start a project</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Content Studio</div>
+    <h1>Words, visuals &amp;<br><em>strategy</em> — in one place.</h1>
+    <p class="hero-desc">The Outliers Content Studio is a full-service production unit for brands that want content built on research, shaped by strategy, and accelerated by AI — without sacrificing quality or voice.</p>
+    <div class="hero-actions">
+      <button class="btn-p">Request a content audit</button>
+      <button class="btn-g">View sample work</button>
+    </div>
+  </div>
+
+  <!-- Mini content calendar -->
+  <div class="cal-widget">
+    <div class="cal-header">
+      <strong>Content Calendar — June 2026</strong>
+      <span>12 pieces scheduled</span>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-day hdr">Mo</div><div class="cal-day hdr">Tu</div><div class="cal-day hdr">We</div><div class="cal-day hdr">Th</div><div class="cal-day hdr">Fr</div><div class="cal-day hdr">Sa</div><div class="cal-day hdr">Su</div>
+      <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day has">1</div><div class="cal-day">2</div>
+      <div class="cal-day has">3</div><div class="cal-day pub">4</div><div class="cal-day">5</div><div class="cal-day has">6</div><div class="cal-day pub">7</div><div class="cal-day">8</div><div class="cal-day">9</div>
+      <div class="cal-day">10</div><div class="cal-day pub">11</div><div class="cal-day has">12</div><div class="cal-day today">13</div><div class="cal-day has">14</div><div class="cal-day">15</div><div class="cal-day">16</div>
+      <div class="cal-day pub">17</div><div class="cal-day">18</div><div class="cal-day has">19</div><div class="cal-day pub">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div>
+      <div class="cal-day has">24</div><div class="cal-day pub">25</div><div class="cal-day">26</div><div class="cal-day has">27</div><div class="cal-day pub">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+    </div>
+    <div class="cal-legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--accent);"></div>Today</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--accent2);opacity:0.5;"></div>Publish</div>
+      <div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,0.15);"></div>In draft</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT FORMATS -->
+<section class="formats-section">
+  <div class="sec-label">What we produce</div>
+  <div class="sec-title">Every format your brand <em>actually needs.</em></div>
+  <div class="formats-grid">
+    <div class="fmt red">
+      <div class="fmt-badge">Written content</div>
+      <h3>Editorial &amp; Long-form</h3>
+      <p>Brand blogs, thought leadership articles, whitepapers, and SEO-optimised guides that position you as the authority in your space.</p>
+      <div class="fmt-tags">
+        <span class="tag">Blogs</span><span class="tag">Whitepapers</span><span class="tag">Case studies</span><span class="tag">SEO guides</span>
+      </div>
+    </div>
+    <div class="fmt red">
+      <div class="fmt-badge">Social &amp; short-form</div>
+      <h3>Platform-Native Social Content</h3>
+      <p>Thumb-stopping copy and visual concepts tailored to Instagram, LinkedIn, X, and TikTok — built around your audience's scroll habits.</p>
+      <div class="fmt-tags">
+        <span class="tag">Captions</span><span class="tag">Carousel scripts</span><span class="tag">Hooks</span><span class="tag">Stories</span>
+      </div>
+    </div>
+    <div class="fmt tl">
+      <div class="fmt-badge">Video &amp; audio</div>
+      <h3>Video Scripts &amp; Podcast Content</h3>
+      <p>From YouTube explainers and brand films to podcast outlines and episode notes — scripted, structured, and story-led.</p>
+      <div class="fmt-tags">
+        <span class="tag">Scripts</span><span class="tag">Storyboards</span><span class="tag">Show notes</span>
+      </div>
+    </div>
+    <div class="fmt tl">
+      <div class="fmt-badge">Email &amp; CRM</div>
+      <h3>Email Sequences &amp; Newsletters</h3>
+      <p>Nurture flows, launch sequences, and weekly newsletters that turn subscribers into loyal customers — personalised at scale.</p>
+      <div class="fmt-tags">
+        <span class="tag">Welcome flows</span><span class="tag">Campaigns</span><span class="tag">Newsletters</span>
+      </div>
+    </div>
+    <div class="fmt gd">
+      <div class="fmt-badge">Brand language</div>
+      <h3>Brand Voice &amp; Messaging Systems</h3>
+      <p>A complete messaging architecture: brand voice guidelines, taglines, value propositions, and a tone-of-voice toolkit your whole team can use.</p>
+      <div class="fmt-tags">
+        <span class="tag">Voice guide</span><span class="tag">Messaging matrix</span><span class="tag">Taglines</span>
+      </div>
+    </div>
+    <div class="fmt gd">
+      <div class="fmt-badge">Strategy</div>
+      <h3>Content Strategy &amp; Audits</h3>
+      <p>A data-backed content roadmap: gap analysis, competitor benchmarking, keyword research, and a quarterly execution plan.</p>
+      <div class="fmt-tags">
+        <span class="tag">Audit</span><span class="tag">Roadmap</span><span class="tag">Keywords</span><span class="tag">Benchmarking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI LAYER -->
+<div class="ai-strip">
+  <div>
+    <div class="sec-label">AI-enhanced production</div>
+    <h2>Human strategy.<br><em>AI velocity.</em></h2>
+    <p>Every piece of content we produce benefits from AI-assisted research, drafting, and optimisation — cutting turnaround times without cutting quality. Your brand voice stays intact; the output scales.</p>
+  </div>
+  <div class="ai-features">
+    <div class="ai-feat tl">
+      <div class="feat-label">AI-assisted drafting</div>
+      <p>First drafts in hours, not days. Edited and refined by experienced human writers.</p>
+    </div>
+    <div class="ai-feat tl">
+      <div class="feat-label">SEO intelligence</div>
+      <p>AI keyword clustering and semantic analysis baked into every long-form brief.</p>
+    </div>
+    <div class="ai-feat tl">
+      <div class="feat-label">Audience personalisation</div>
+      <p>Content variants automatically tailored to different segments or buyer personas.</p>
+    </div>
+    <div class="ai-feat tl">
+      <div class="feat-label">Performance prediction</div>
+      <p>Pre-publish scoring on headline effectiveness, readability, and engagement probability.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="sec-label">How it works</div>
+  <div class="sec-title">From brief to <em>published.</em></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-n on">01</div>
+      <h4>Brief</h4>
+      <p>You share your goals, audience, and brand context. We ask the smart questions.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <h4>Research</h4>
+      <p>Keyword research, competitor audit, and audience insight mapping.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <h4>Create</h4>
+      <p>AI-accelerated drafting, refined by senior editors to your brand voice.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <h4>Review</h4>
+      <p>Two rounds of revisions. You approve before anything goes live.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">05</div>
+      <h4>Publish &amp; track</h4>
+      <p>We schedule, post, and report on performance monthly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TIERS -->
+<section class="tiers">
+  <div class="sec-label">Packages</div>
+  <div class="sec-title">Pick a plan or <em>build your own.</em></div>
+  <div class="tiers-grid">
+    <div class="tier">
+      <div class="tier-name">Essentials</div>
+      <div class="tier-price">Custom <span>/ month</span></div>
+      <div class="tier-sub">For growing brands building their content foundation.</div>
+      <ul>
+        <li>4 long-form blog posts/month</li>
+        <li>8 social media captions</li>
+        <li>Monthly content calendar</li>
+        <li>1 email newsletter</li>
+        <li class="off">Brand voice guide</li>
+        <li class="off">AI performance reports</li>
+      </ul>
+      <button class="tier-btn outline">Get a quote</button>
+    </div>
+    <div class="tier featured">
+      <div class="tier-badge">Most popular</div>
+      <div class="tier-name">Studio</div>
+      <div class="tier-price">Custom <span>/ month</span></div>
+      <div class="tier-sub">Full content engine for established brands ready to scale.</div>
+      <ul>
+        <li>8 long-form pieces/month</li>
+        <li>20 social media captions</li>
+        <li>Brand voice guide included</li>
+        <li>3 email sequences</li>
+        <li>AI performance dashboard</li>
+        <li class="off">Dedicated content strategist</li>
+      </ul>
+      <button class="tier-btn solid">Get a quote</button>
+    </div>
+    <div class="tier">
+      <div class="tier-name">Enterprise</div>
+      <div class="tier-price">Custom <span>/ month</span></div>
+      <div class="tier-sub">Bespoke content infrastructure for large brands and agencies.</div>
+      <ul>
+        <li>Unlimited content volume</li>
+        <li>Dedicated strategist + editor</li>
+        <li>Full brand messaging system</li>
+        <li>Weekly performance reviews</li>
+        <li>AI content pipeline setup</li>
+        <li>Multi-market localisation</li>
+      </ul>
+      <button class="tier-btn outline">Talk to us</button>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE WORK -->
+<section class="samples">
+  <div class="sec-label">Sample work</div>
+  <div class="sec-title">Recent content <em>we've produced.</em></div>
+  <div class="samples-row">
+    <div class="sample">
+      <div class="sample-img c1">✦</div>
+      <div class="sample-body">
+        <div class="sample-type">Thought leadership</div>
+        <h4>The future of fintech in East Africa: what the next 5 years look like</h4>
+        <p>2,800-word whitepaper for a Nairobi-based payments firm. 4× organic traffic lift in 90 days.</p>
+      </div>
+    </div>
+    <div class="sample">
+      <div class="sample-img c2">◈</div>
+      <div class="sample-body">
+        <div class="sample-type">Social campaign</div>
+        <h4>12-week LinkedIn series for an agro-processing brand</h4>
+        <p>48 posts, 3 formats. Average engagement rate: 6.2% — above 3× the industry benchmark.</p>
+      </div>
+    </div>
+    <div class="sample">
+      <div class="sample-img c3">◉</div>
+      <div class="sample-body">
+        <div class="sample-type">Email sequence</div>
+        <h4>7-part onboarding flow for a Nairobi SaaS startup</h4>
+        <p>42% open rate, 18% click-through. Reduced churn in month 1 by 22%.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-block">
+  <h2>Ready to build a content<br>engine that <em>actually converts?</em></h2>
+  <p>Start with a free 30-minute content audit. We'll show you exactly where the gaps are.</p>
+  <div class="hero-actions">
+    <button class="btn-p">Book a free audit</button>
+    <button class="btn-g">Download our content guide</button>
+  </div>
+</section>
+
+</body>
+</html>
